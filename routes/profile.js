@@ -3,28 +3,59 @@
 module.exports = function (app, nconf) {
   var level = require('level');
   var Grafty = require('grafty');
-  var path = require('path')
+  var path = require('path');
+  var uuid = require('uuid');
+  var concat = require('concat-stream');
 
   var grafty = new Grafty({
-    width: 28,
+    width: 50,
     dir: path.dirname(require.main.filename) + '/images'
   });
-
-  //console.log(grafty
 
   var profileDb = level(nconf.get('db_profile'), {
     createIfMissing: true,
     valueEncoding: 'json'
   });
 
+  app.get('/', function (req, res, next) {
+    var rs = profileDb.createReadStream();
+
+    rs.pipe(concat(function (u) {
+      console.log(u)
+      res.render('index', {
+        users: u
+      });
+    }));
+
+    rs.on('error', function (err) {
+      res.status(400);
+      next(err);
+    });
+  });
+
+  app.get('/u/:uid', function (req, res, next) {
+    profileDb.get('user!' + req.params.uid, function (err, profile) {
+      if (err || !profile) {
+        res.status(404);
+        next(err);
+      }
+
+      res.render('user', {
+        user: profile
+      });
+    });
+  });
+
   app.get('/profile', function (req, res) {
-    profileDb.get('user!' + req.session.id, function (err, profile) {
+    profileDb.get('user!' + req.session.uid, function (err, profile) {
       if (err || !profile) {
         profile = {
           name: '',
           bio: '',
           url: ''
         }
+      } else {
+        req.session.uid = profile.uid;
       }
 
       req.session.avatar = profile.avatar || '';
@@ -42,8 +73,14 @@ module.exports = function (app, nconf) {
       url: req.body.url.trim()
     };
 
+    if (!req.session.uid) {
+      profile.uid = req.session.uid = uuid.v4();
+    } else {
+      profile.uid = req.session.uid;
+    }
+
     var save = function () {
-      profileDb.put('user!' + req.session.id, profile, function (err) {
+      profileDb.put('user!' + profile.uid, profile, function (err) {
         if (err) {
           res.status = 400;
           next(err);

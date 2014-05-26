@@ -116,6 +116,11 @@ section {
 
 h1 {
     font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+pre {
+    line-height: 1.2rem;
 }
 
 #preview {
@@ -126,4 +131,18 @@ h1 {
 #preview, #preview img {
     height: 100px;
     width: 100px;
+}
+
+@media only screen and (max-width: 688px) {
+    pre {
+        font-size: 0.75rem;
+        line-height: 0.85rem;
+    }
+}
+
+@media only screen and (max-width: 518px) {
+    pre {
+        font-size: 0.58rem;
+        line-height: 0.65rem;
+    }
 }

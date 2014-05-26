@@ -18,7 +18,9 @@
     "connect-redis": "~1.4.6",
     "no-plebs": "0.0.6",
     "level": ">= 0.10.0",
-    "grafty": "~0.0.4"
+    "grafty": "~0.0.4",
+    "uuid": "~1.4.1",
+    "concat-stream": "~1.4.4"
   },
   "devDependencies": {
     "nodemon": "*"

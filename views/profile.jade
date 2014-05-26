@@ -8,8 +8,7 @@ block content
       span Avatar
       #current-avatar.ascii
         if profile.avatar
-          pre
-            code=profile.avatar
+          pre=profile.avatar
       #preview
       input(type='file', id='avatar-picker')
       textarea(class='hidden', name='avatar', id='avatar')

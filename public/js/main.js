@@ -7,9 +7,8 @@ var generateImage = function (ev) {
   preview.innerHTML = '';
 
   var onComplete = function () {
-    canvas.width = 100;
-    canvas.height = 100;
-    canvas.getContext('2d').drawImage(img, 0, 0, 100, 100);
+    canvas.width = canvas.height = 100;
+    canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
     document.getElementById('avatar').value = canvas.toDataURL('image/jpeg', 0.4);
     preview.appendChild(img);
   };
