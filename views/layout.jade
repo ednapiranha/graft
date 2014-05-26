@@ -11,7 +11,12 @@ html
   body
     #wrapper
       header
-        a.back(href='/') &lt;
-        a.title.header(href='/') graft
+        ul
+          li
+            a.root(href='/') graft
+          li
+            a.profile(href='/profile') your profile
       section
+        block content
       #footer
+    script(type='text/javascript', src='/js/main.js')

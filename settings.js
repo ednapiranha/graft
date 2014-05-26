@@ -1,6 +1,6 @@
 // Module dependencies.
 module.exports = function(app, configurations, express) {
-  var maxAge = 24 * 60 * 60 * 1000 * 28;
+  var maxAge = 24 * 60 * 60 * 365 * 1000;
   var nconf = require('nconf');
   var RedisStore = require('connect-redis')(express);
 

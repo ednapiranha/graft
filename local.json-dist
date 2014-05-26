@@ -8,7 +8,9 @@
     "url": "http://localhost:3000",
     "full_name": "GraftSpace",
     "username": "graftspace",
-    "db_posts": "./db-posts",
-    "db_comments": "./db-comments",
+    "db_posts": "./db/posts",
+    "db_comments": "./db/comments",
+    "db_profile": "./db/profile",
+    "images": "./images",
     "redis_db": 1
 }

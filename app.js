@@ -10,5 +10,6 @@ nconf.argv().env().file({ file: 'local.json' });
 // routes
 require('./routes/comments')(app, nconf);
 require('./routes/posts')(app, nconf);
+require('./routes/profile')(app, nconf);
 
 server.listen(process.env.PORT || nconf.get('port'));

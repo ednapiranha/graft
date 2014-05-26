@@ -12,15 +12,6 @@ module.exports = function (app, nconf) {
     res.render('add');
   });
 
-  app.get('/post/add', function (req, res) {
-    res.json({
-      title: 'Add post',
-      action: '/post',
-      button: 'Add',
-      type: 'POST'
-    });
-  });
-
   app.post('/post', function (req, res, next) {
     var text = req.body.message.trim();
 
