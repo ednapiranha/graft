@@ -6,6 +6,6 @@ block content
   ul.users
     for user in users
       li
-        a(href='/u/#{user.value.uid}')
-          pre
-            code= user.value.avatar
+        .avatar-preview
+          pre= user.value.avatar
+        a(href='/u/#{user.value.uid}')= user.value.name

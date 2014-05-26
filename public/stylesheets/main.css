@@ -120,7 +120,7 @@ h1 {
 }
 
 pre {
-    line-height: 1.2rem;
+    line-height: 1.3rem;
 }
 
 #preview {
@@ -133,16 +133,25 @@ pre {
     width: 100px;
 }
 
+.avatar-preview pre {
+    font-size: 0.58rem;
+    line-height: 0.65rem;
+}
+
+p.bio, p.url {
+    margin: 10px 0;
+}
+
 @media only screen and (max-width: 688px) {
     pre {
         font-size: 0.75rem;
-        line-height: 0.85rem;
+        line-height: 0.95rem;
     }
 }
 
 @media only screen and (max-width: 518px) {
     pre {
         font-size: 0.58rem;
-        line-height: 0.65rem;
+        line-height: 0.75rem;
     }
 }
