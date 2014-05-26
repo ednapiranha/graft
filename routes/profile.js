@@ -81,7 +81,7 @@ module.exports = function (app, nconf) {
     var save = function () {
       profileDb.put('user!' + profile.uid, profile, function (err) {
         if (err) {
-          res.status = 400;
+          res.status(400);
           next(err);
           return;
         }
@@ -95,7 +95,7 @@ module.exports = function (app, nconf) {
     if (req.body.avatar.length > 1) {
       grafty.convert(req.body.avatar, function (err, pic) {
         if (err) {
-          res.status = 400;
+          res.status(400);
           next(err);
           return;
         }
