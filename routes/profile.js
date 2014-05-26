@@ -21,7 +21,6 @@ module.exports = function (app, nconf) {
     var rs = profileDb.createReadStream();
 
     rs.pipe(concat(function (u) {
-      console.log(u)
       res.render('index', {
         users: u
       });
