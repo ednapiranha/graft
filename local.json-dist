@@ -1,0 +1,14 @@
+{
+    "domain": "http://127.0.0.1",
+    "port": 3000,
+    "authPort": 3000,
+    "analytics": false,
+    "analyticsHost": "localhost",
+    "session_secret": "secret",
+    "url": "http://localhost:3000",
+    "full_name": "GraftSpace",
+    "username": "graftspace",
+    "db_posts": "./db-posts",
+    "db_comments": "./db-comments",
+    "redis_db": 1
+}
