@@ -59,8 +59,11 @@ html, body {
     font-style: normal;
 }
 
+body {
+    background-color: #181818;
+}
+
 #wrapper {
-    background-color: #f8f8f8;
     color: #222;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 1rem;
@@ -79,6 +82,7 @@ pre, code, .ascii {
 
 a {
     color: #17bdde;
+    text-decoration: none;
 }
 
 header {
@@ -99,10 +103,11 @@ header a {
 
 header a:hover {
     background-color: #7cf7ff;
-    color: #111;
+    color: #444;
 }
 
 section {
+    color: #888;
     display: block;
     float: left;
     margin: 40px 0 20px;
@@ -115,7 +120,9 @@ section {
 }
 
 h1, h2 {
+    color: #aaa;
     font-size: 2rem;
+    font-weight: 100;
     margin-bottom: 20px;
 }
 
@@ -142,14 +149,17 @@ pre.post {
     white-space: pre-wrap;
 }
 
+ul.posts {
+    float: left;
+}
+
 ul.posts li {
-    border-top: 3px solid #eee;
+    border-top: 3px solid #222;
     margin-bottom: 10px;
     padding: 20px 0;
 }
 
 #preview {
-    background-color: #eee;
     margin-bottom: 10px;
 }
 
@@ -178,5 +188,13 @@ p.bio, p.url {
     pre.photo {
         font-size: 0.58rem;
         line-height: 0.75rem;
+    }
+
+    header li {
+        padding-right: 20px;
+    }
+
+    header a {
+        font-size: 1rem;
     }
 }
