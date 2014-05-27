@@ -12,7 +12,8 @@ block content
   ul.posts
     for post in posts
       li
-        h2= post.content.message.title
+        h2
+          a(href='/post/#{post.id}')= post.content.message.title
         if post.content.message.photo
           pre.photo= post.content.message.photo
         pre.post!= post.content.message.body
