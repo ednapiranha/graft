@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (app, nconf) {
+module.exports = function (app, isAuthed, nconf) {
   var NoPlebs = require('no-plebs');
 
   var nopleb = new NoPlebs({
@@ -8,7 +8,7 @@ module.exports = function (app, nconf) {
     limit: 25
   });
 
-  app.post('/api/comment', function (req, res) {
+  app.post('/api/comment', isAuthed, function (req, res) {
     nopleb.addComment(req.body.comment, req.body.url, req.session.id, function (err, comment) {
       if (err) {
         res.status(400);
@@ -25,7 +25,7 @@ module.exports = function (app, nconf) {
     });
   });
 
-  app.del('/api/comment', function (req, res) {
+  app.del('/api/comment', isAuthed, function (req, res) {
     var url = req.body.url;
     var key = req.body.key;
 
