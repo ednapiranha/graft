@@ -65,6 +65,10 @@ module.exports = function (app, grafty, dex, isAuthed, nconf) {
         save();
       });
     } else {
+      if (req.body.photo_text) {
+        message.content.message.photo = req.body.photo_text;
+      }
+
       save();
     }
   });

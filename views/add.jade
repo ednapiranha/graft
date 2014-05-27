@@ -16,7 +16,9 @@ block content
         input(type='file', id='photo-picker')
         textarea(class='hidden', name='photo', id='photo')
     else
-      p It looks like you are using Lynx and cannot use the photo upload feature.
+      label(for='photo')
+        span Image (paste in your ascii)
+        textarea(name='photo_text')
 
     label(for='name')
       span Title

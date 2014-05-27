@@ -22,6 +22,8 @@ html
           if session.uid
             li
               a(href='/add') add a post
+            li
+              a(href='/u/#{session.uid}') your profile
       section
         block content
       #footer

@@ -252,10 +252,6 @@ ul.posts li {
     margin-bottom: 10px;
 }
 
-#preview, #preview img {
-    height: 100px;
-    width: 100px;
-}
 
 .avatar-preview pre.photo {
     font-size: 0.58rem;
