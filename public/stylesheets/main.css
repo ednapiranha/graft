@@ -91,15 +91,31 @@ header {
 
 header li {
     float: left;
-    padding-right: 40px;
+    margin-bottom: 3px;
 }
 
-header a {
+header li a {
+    background-color: rgba(0, 0, 0, 0.2);
     display: inline-block;
     font-size: 1.5rem;
     font-weight: 200;
     line-height: 1.8rem;
+    margin: 0 2px;
+    padding: 3px;
+    text-align: center;
     text-decoration: none;
+    width: 263px;
+}
+
+header li a.root {
+    background-color: transparent;
+    color: #888;
+    text-align: left;
+    width: 70px;
+}
+
+header li a.root:hover {
+    color: #fff;
 }
 
 header a:hover {
