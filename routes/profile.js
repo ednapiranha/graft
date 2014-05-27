@@ -5,6 +5,32 @@ module.exports = function (app, grafty, dex, isAuthed, nconf) {
   var uuid = require('uuid');
   var concat = require('concat-stream');
 
+  var DEFAULT_AVATAR = "MMMMMMMMMMMMMMMMWMMMMMMMMMMMMMMWWMMMMWMMMMMMMMMMMM\n\
+MMMMMMMMMMMMMMMWWWMMMWWWMMMMMMMMMMMMMMMMMMMMMMMMMM\n\
+MMMMMMMMMMMMMMWNKOxoc:;;;;;,;:ldkKNWMMMMMMMMMMMMMM\n\
+MMMMMMMMMMWMWKd:..               .,ckXWMMMMMMMMMMM\n\
+MMMMMMMMWWNOc.                       'dXMMMMMMMMMM\n\
+MMMMMMMMNOc.                          .;OWWWMMMMMM\n\
+MMMMMMMWx.                              '0WWMWWMMM\n\
+MMMMMMMO'          .,ldxolc,             oWMMWWMMM\n\
+MMMMMMMo          ,kNWWMWNWNl.           lWMWWMMMM\n\
+MMMMMMMKkkkxxxkkkkKNWWWWWNNWO.           cWMWWMMMM\n\
+MMMMMMMMMMMMMMMWWWMMMMWWWWWKl.          .dWMMMWWMM\n\
+MMMMMMMMMMMMMMMMWMMMWWMXxoc'            cXWWMMWWMM\n\
+MMMMMMMMMMMMMMMMWMMWW0o'             .'dNMMMMMMMMM\n\
+MMMMMMMMMMMMMMMMMMMWx.             .:kXNWMMMMMMMMM\n\
+MMMMMMMMMMMMMMMMMMWK,            ;xKWMMMMMMMMMMMMM\n\
+MMMMMMMMMMMMMMMMMWW0'           ;XMWWMMWMMMMMMMMMM\n\
+MMMMMMMMMMMMMMMMWWMXdlllllllllllOMMMMMWMMMMMMMMMMM\n\
+MMMMMMMMMMMMMMMWWWMWNWWWMMMMMMMMWWMMMMMMMMMMMMMMMM\n\
+MMMMMMMMMMMMMMMMMMWKl,;,,,,,,,,,oXMMMMMMMMMMMMMMMM\n\
+MMMMMMMMMMMMMMMMMWW0'           ;KWMMMMMMMMMMMMMMM\n\
+MMMMMMMMMMMMMMMWWWW0'           ;KWMMMMMMMMMMMMMMM\n\
+MMMMMMMMMMMMMMMWWMWKl;;;;;;;;;;;dXMMMMMMMMMMMMMMMM\n\
+MMMMMMMMMMMMMMMMWWMMWWMMMMMMMMMMMMMMMMMMMMMMMMMMMM\n\
+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\n\
+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM";
+
   var profileDb = level(nconf.get('db_profile'), {
     createIfMissing: true,
     valueEncoding: 'json'
@@ -91,11 +117,24 @@ module.exports = function (app, grafty, dex, isAuthed, nconf) {
   });
 
   app.post('/profile', function (req, res, next) {
+    var errors = [];
+
     var profile = {
-      name: req.body.name.trim(),
-      bio: req.body.bio.trim(),
-      url: req.body.url.trim()
+      name: req.body.name.trim().substring(0, 32),
+      bio: req.body.bio.trim().substring(0, 200),
+      url: req.body.url.trim().substring(0, 300)
     };
+
+    if (profile.name.length < 1) {
+      errors.push('Name cannot be empty');
+    }
+
+    if (errors.length > 0) {
+      res.render('profile', {
+        errors: errors,
+        profile: profile
+      });
+    }
 
     if (!req.session.uid) {
       profile.uid = req.session.uid = uuid.v4();
@@ -136,7 +175,8 @@ module.exports = function (app, grafty, dex, isAuthed, nconf) {
         profile.avatar = req.body.avatar_text;
         req.session.avatar = profile.avatar;
       } else {
-        profile.avatar = req.session.avatar;
+        profile.avatar = DEFAULT_AVATAR;
+        req.session.avatar = profile.avatar;
       }
 
       save();

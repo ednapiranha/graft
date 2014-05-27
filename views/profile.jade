@@ -3,6 +3,11 @@ extend layout
 block content
   h1 Edit your profile
 
+  if errors
+    ul.errors
+      for error in errors
+        li= error
+
   form(method='POST', action='/profile')
     if jsSupport
       label(for='avatar')

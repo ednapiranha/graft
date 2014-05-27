@@ -8,8 +8,8 @@ module.exports = function (app, grafty, dex, isAuthed, nconf) {
   });
 
   app.post('/post', isAuthed, function (req, res, next) {
-    var content = req.body.content.trim();
-    var title = req.body.title.trim();
+    var content = req.body.content.trim().substring(0, 500);
+    var title = req.body.title.trim().substring(0, 100);
     var errors = [];
 
     if (!content && !req.body.photo) {

@@ -8,8 +8,7 @@ var settings = require('./settings')(app, configurations, express);
 var path = require('path');
 var Grafty = require('grafty');
 var grafty = new Grafty({
-  width: 50,
-  dir: path.dirname(require.main.filename) + '/images'
+  width: 50
 });
 
 var Dextromethorphan = require('dextromethorphan');
