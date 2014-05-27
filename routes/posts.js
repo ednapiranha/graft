@@ -100,22 +100,14 @@ module.exports = function (app, grafty, dex, profileDb, isAuthed, nconf) {
   });
 
   app.post('/post/delete/:id', isAuthed, function (req, res, next) {
-    dex.get(req.params.id, function (err, post) {
-      if (err || post.meta.author !== req.session.uid) {
-        res.status(404);
+    dex.del(req.session.uid, req.params.id, function (err, status) {
+      if (err || !status) {
+        res.status(400);
         next();
         return;
       }
 
-      dex.del(req.session.uid, req.params.id, function (err, status) {
-        if (err || !status) {
-          res.status(400);
-          next();
-          return;
-        }
-
-        res.redirect('/u/' + req.session.uid);
-      });
+      res.redirect('/u/' + req.session.uid);
     });
   });
 };
