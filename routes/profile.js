@@ -41,7 +41,7 @@ module.exports = function (app, grafty, dex, isAuthed, nconf) {
         currPage = parseInt(req.query.page, 10) || 0;
       }
 
-      d.getAllByUser(req.params.uid, req.query.page || 0, function (err, posts) {
+      dex.getAllByUser(req.params.uid, req.query.page || 0, function (err, posts) {
         if (err) {
           res.status(400);
           next(err);
