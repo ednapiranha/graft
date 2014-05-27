@@ -13,3 +13,7 @@ block content
 
   pre.post!= post.content.message.body
 
+  p
+    span Posted by&#xa0;
+    a(href='/u/#{post.meta.author}')= author
+

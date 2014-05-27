@@ -1,7 +1,6 @@
 'use strict';
 
-module.exports = function (app, grafty, dex, isAuthed, nconf) {
-  var level = require('level');
+module.exports = function (app, grafty, dex, profileDb, isAuthed, nconf) {
   var uuid = require('uuid');
   var concat = require('concat-stream');
 
@@ -30,11 +29,6 @@ MMMMMMMMMMMMMMMWWMWKl;;;;;;;;;;;dXMMMMMMMMMMMMMMMM\n\
 MMMMMMMMMMMMMMMMWWMMWWMMMMMMMMMMMMMMMMMMMMMMMMMMMM\n\
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\n\
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM";
-
-  var profileDb = level(nconf.get('db_profile'), {
-    createIfMissing: true,
-    valueEncoding: 'json'
-  });
 
   app.get('/', function (req, res, next) {
     var rs = profileDb.createReadStream();

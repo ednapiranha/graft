@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (app, grafty, dex, isAuthed, nconf) {
+module.exports = function (app, grafty, dex, profileDb, isAuthed, nconf) {
   var twitter = require('twitter-text');
 
   app.get('/add', function (req, res) {
@@ -81,11 +81,20 @@ module.exports = function (app, grafty, dex, isAuthed, nconf) {
       if (err) {
         res.status(404);
         next();
-        return
+        return;
       }
 
-      res.render('post', {
-        post: post
+      profileDb.get('user!' + post.meta.author, function (err, profile) {
+        if (err) {
+          res.status(404);
+          next();
+          return;
+        }
+
+        res.render('post', {
+          post: post,
+          author: profile.name
+        });
       });
     });
   });
