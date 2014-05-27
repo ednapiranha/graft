@@ -173,8 +173,12 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM";
         profile.avatar = req.body.avatar_text;
         req.session.avatar = profile.avatar;
       } else {
-        profile.avatar = DEFAULT_AVATAR;
-        req.session.avatar = profile.avatar;
+        if (req.session.avatar) {
+          profile.avatar = req.session.avatar;
+        } else {
+          profile.avatar = DEFAULT_AVATAR;
+          req.session.avatar = profile.avatar;
+        }
       }
 
       save();
