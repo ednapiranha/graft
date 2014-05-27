@@ -31,6 +31,7 @@ module.exports = function(app, configurations, express) {
       res.locals.analytics = nconf.get('analytics');
       res.locals.analyticsHost = nconf.get('analyticsHost');
       res.locals.siteHost = nconf.get('domain') + ':' + nconf.get('authPort');
+      res.locals.jsSupport = (req.headers['user-agent'].indexOf('Lynx') === -1);
 
       if (!process.env.NODE_ENV) {
         res.locals.isDebug = true;

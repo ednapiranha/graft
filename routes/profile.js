@@ -37,6 +37,7 @@ module.exports = function (app, nconf) {
       if (err || !profile) {
         res.status(404);
         next(err);
+        return;
       }
 
       res.render('user', {
@@ -92,7 +93,7 @@ module.exports = function (app, nconf) {
       });
     };
 
-    if (req.body.avatar.length > 1) {
+    if (req.body.avatar && req.body.avatar.length > 1) {
       grafty.convert(req.body.avatar, function (err, pic) {
         if (err) {
           res.status(400);
