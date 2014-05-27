@@ -189,6 +189,21 @@ textarea {
     resize: none;
 }
 
+button {
+    cursor: pointer;
+}
+
+.delete {
+    background-color: #e41f5b;
+    color: #fff0f5;
+    height: 50px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    width: 50px;
+}
+
 .hidden {
     display: none;
 }

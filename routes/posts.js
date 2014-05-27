@@ -73,12 +73,32 @@ module.exports = function (app, grafty, dex, isAuthed, nconf) {
     dex.get(req.params.id, function (err, post) {
       if (err) {
         res.status(404);
-        next(err);
+        next();
         return
       }
 
       res.render('post', {
         post: post
+      });
+    });
+  });
+
+  app.post('/post/delete/:id', isAuthed, function (req, res, next) {
+    dex.get(req.params.id, function (err, post) {
+      if (err || post.meta.author !== req.session.uid) {
+        res.status(404);
+        next();
+        return;
+      }
+
+      dex.del(req.session.uid, req.params.id, function (err, status) {
+        if (err || !status) {
+          res.status(400);
+          next(err);
+          return;
+        }
+
+        res.redirect('/u/' + req.session.uid);
       });
     });
   });

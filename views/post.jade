@@ -3,7 +3,13 @@ extend layout
 block content
   h1= post.content.message.title
 
+  if post.meta.author === session.uid
+    form(method='POST', action='/post/delete/#{post.id}')
+      input(type='hidden', name='_csrf', value=csrf)
+      button(type='submit', class='delete ascii') X
+
   if post.content.message.photo
     pre.photo=post.content.message.photo
 
   pre.post!= post.content.message.body
+
