@@ -161,8 +161,12 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM";
     if (req.body.avatar && req.body.avatar.length > 1) {
       grafty.convert(req.body.avatar, function (err, pic) {
         if (err) {
-          res.status(400);
-          next(err);
+          errors.push('This image could not be converted. Try another one');
+
+          res.render('profile', {
+            profile: profile,
+            errors: errors
+          });
           return;
         }
 

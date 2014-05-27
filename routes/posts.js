@@ -56,8 +56,11 @@ module.exports = function (app, grafty, dex, isAuthed, nconf) {
     if (req.body.photo && req.body.photo.length > 1) {
       grafty.convert(req.body.photo, function (err, pic) {
         if (err) {
-          res.status(400);
-          next(err);
+          errors.push('This image could not be converted. Try another one');
+
+          res.render('add', {
+            errors: errors
+          });
           return;
         }
 
@@ -98,7 +101,7 @@ module.exports = function (app, grafty, dex, isAuthed, nconf) {
       dex.del(req.session.uid, req.params.id, function (err, status) {
         if (err || !status) {
           res.status(400);
-          next(err);
+          next();
           return;
         }
 
