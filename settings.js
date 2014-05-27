@@ -28,6 +28,7 @@ module.exports = function(app, configurations, express) {
     app.use(express.csrf());
     app.use(function (req, res, next) {
       res.locals.csrf = req.csrfToken();
+      res.locals.session = req.session;
       res.locals.analytics = nconf.get('analytics');
       res.locals.analyticsHost = nconf.get('analyticsHost');
       res.locals.siteHost = nconf.get('domain') + ':' + nconf.get('authPort');

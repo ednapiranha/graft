@@ -7,14 +7,16 @@ block content
     if jsSupport
       label(for='avatar')
         span Avatar
-        #current-avatar.ascii
+        .avatar-preview
           if profile.avatar
-            pre=profile.avatar
+            pre.photo=profile.avatar
         #preview
-        input(type='file', id='avatar-picker')
-        textarea(class='hidden', name='avatar', id='avatar')
+        input(type='file', id='photo-picker')
+        textarea(class='hidden', name='avatar', id='photo')
     else
-      p It looks like you are using Lynx and cannot use the avatar upload feature.
+      label(for='avatar')
+        span Avatar (paste in your ascii)
+        textarea(name='avatar_text')
 
     label(for='name')
       span Name

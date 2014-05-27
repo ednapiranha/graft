@@ -7,5 +7,5 @@ block content
     for user in users
       li
         .avatar-preview
-          pre= user.value.avatar
+          pre.photo= user.value.avatar
         a(href='/u/#{user.value.uid}')= user.value.name

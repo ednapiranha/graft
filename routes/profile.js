@@ -1,16 +1,9 @@
 'use strict';
 
-module.exports = function (app, nconf) {
+module.exports = function (app, grafty, dex, isAuthed, nconf) {
   var level = require('level');
-  var Grafty = require('grafty');
-  var path = require('path');
   var uuid = require('uuid');
   var concat = require('concat-stream');
-
-  var grafty = new Grafty({
-    width: 50,
-    dir: path.dirname(require.main.filename) + '/images'
-  });
 
   var profileDb = level(nconf.get('db_profile'), {
     createIfMissing: true,
@@ -36,12 +29,43 @@ module.exports = function (app, nconf) {
     profileDb.get('user!' + req.params.uid, function (err, profile) {
       if (err || !profile) {
         res.status(404);
-        next(err);
+        next();
         return;
       }
 
-      res.render('user', {
-        user: profile
+      var prevPage = 0;
+      var nextPage = 0;
+      var currPage = 0;
+
+      if (req.query.page) {
+        currPage = parseInt(req.query.page, 10) || 0;
+      }
+
+      dex.getAll(req.query.page || 0, function (err, posts) {
+        if (err) {
+          res.status(400);
+          next(err);
+          return;
+        }
+
+        nextPage = currPage + 1;
+
+        if (posts.length < dex.limit) {
+          nextPage = 0;
+        }
+
+        prevPage = currPage - 1;
+
+        if (prevPage < 0) {
+          prevPage = 0;
+        }
+
+        res.render('user', {
+          posts: posts,
+          user: profile,
+          prev: prevPage,
+          next: nextPage
+        });
       });
     });
   });
@@ -87,6 +111,8 @@ module.exports = function (app, nconf) {
           return;
         }
 
+        req.session.name = profile.name;
+
         res.render('profile', {
           profile: profile
         });
@@ -102,11 +128,17 @@ module.exports = function (app, nconf) {
         }
 
         profile.avatar = pic;
-        req.session.avatar = pic;
+        req.session.avatar = profile.avatar;
         save();
       });
     } else {
-      profile.avatar = req.session.avatar;
+      if (req.body.avatar_text && req.body.avatar_text.length > 1) {
+        profile.avatar = req.body.avatar_text;
+        req.session.avatar = profile.avatar;
+      } else {
+        profile.avatar = req.session.avatar;
+      }
+
       save();
     }
   });

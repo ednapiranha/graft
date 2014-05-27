@@ -9,7 +9,7 @@ var generateImage = function (ev) {
   var onComplete = function () {
     canvas.width = canvas.height = 100;
     canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
-    document.getElementById('avatar').value = canvas.toDataURL('image/jpeg', 0.4);
+    document.getElementById('photo').value = canvas.toDataURL('image/jpeg', 0.4);
     preview.appendChild(img);
   };
 
@@ -17,5 +17,5 @@ var generateImage = function (ev) {
   img.src = window.URL.createObjectURL(picture);
 };
 
-document.getElementById('avatar-picker').addEventListener('change', generateImage, false);
+document.getElementById('photo-picker').addEventListener('change', generateImage, false);
 

@@ -114,13 +114,38 @@ section {
     display: none;
 }
 
-h1 {
+h1, h2 {
     font-size: 2rem;
     margin-bottom: 20px;
 }
 
-pre {
+.errors {
+    margin: 20px 0;
+}
+
+.errors li {
+    background-color: #e41f5b;
+    color: #fff0f5;
+    padding: 5px;
+    text-transform: uppercase;
+}
+
+pre.photo {
     line-height: 1.3rem;
+    margin-bottom: 20px;
+}
+
+pre.post {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.4rem;
+    white-space: pre-wrap;
+}
+
+ul.posts li {
+    border-top: 3px solid #eee;
+    margin-bottom: 10px;
+    padding: 20px 0;
 }
 
 #preview {
@@ -135,7 +160,7 @@ pre {
 
 .avatar-preview pre {
     font-size: 0.58rem;
-    line-height: 0.65rem;
+    line-height: 0.68rem;
 }
 
 p.bio, p.url {
@@ -143,14 +168,14 @@ p.bio, p.url {
 }
 
 @media only screen and (max-width: 688px) {
-    pre {
+    pre.photo {
         font-size: 0.75rem;
         line-height: 0.95rem;
     }
 }
 
 @media only screen and (max-width: 518px) {
-    pre {
+    pre.photo {
         font-size: 0.58rem;
         line-height: 0.75rem;
     }

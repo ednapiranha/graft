@@ -3,9 +3,17 @@ extend layout
 block content
   h1= user.name
   #avatar
-    pre= user.avatar
+    pre.photo= user.avatar
 
   p.bio= user.bio
   p.url
     a(href=user.url)= user.url
+
+  ul.posts
+    for post in posts
+      li
+        h2= post.content.message.title
+        if post.content.message.photo
+          pre.photo= post.content.message.photo
+        pre.post= post.content.message.body
 

@@ -1,3 +1,30 @@
 extend layout
 
 block content
+  h1 Add a post
+
+  if errors
+    ul.errors
+      for error in errors
+        li= error
+
+  form(method='POST', action='/post')
+    if jsSupport
+      label(for='photo')
+        span Image
+        #preview
+        input(type='file', id='photo-picker')
+        textarea(class='hidden', name='photo', id='photo')
+    else
+      p It looks like you are using Lynx and cannot use the photo upload feature.
+
+    label(for='name')
+      span Title
+      input(type='text', name='title')
+
+    label(for='content')
+      span Post
+      textarea(name='content')
+
+    input(type='hidden', name='_csrf', value=csrf)
+    button(type='submit') Add

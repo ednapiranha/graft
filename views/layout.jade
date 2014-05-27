@@ -15,7 +15,13 @@ html
           li
             a.root(href='/') graft
           li
-            a.profile(href='/profile') your profile
+            if session.uid
+              a.profile(href='/profile') edit your profile
+            else
+              a.profile(href='/profile') create your profile
+          if session.uid
+            li
+              a(href='/add') add a post
       section
         block content
       #footer
