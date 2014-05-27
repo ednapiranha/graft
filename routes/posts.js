@@ -1,6 +1,8 @@
 'use strict';
 
 module.exports = function (app, grafty, dex, isAuthed, nconf) {
+  var twitter = require('twitter-text');
+
   app.get('/add', function (req, res) {
     res.render('add');
   });
@@ -29,7 +31,7 @@ module.exports = function (app, grafty, dex, isAuthed, nconf) {
       content: {
         message: {
           uid: req.session.uid,
-          body: content,
+          body: twitter.autoLink(twitter.htmlEscape(content), { targetBlank: true }),
           title: title
         }
       },
@@ -74,7 +76,7 @@ module.exports = function (app, grafty, dex, isAuthed, nconf) {
         next(err);
         return
       }
-      console.log(post)
+
       res.render('post', {
         post: post
       });

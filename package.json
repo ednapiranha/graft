@@ -20,7 +20,8 @@
     "level": ">= 0.10.0",
     "grafty": "~0.0.4",
     "uuid": "~1.4.1",
-    "concat-stream": "~1.4.4"
+    "concat-stream": "~1.4.4",
+    "twitter-text": "~1.9.0"
   },
   "devDependencies": {
     "nodemon": "*"
