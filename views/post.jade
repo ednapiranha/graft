@@ -13,7 +13,24 @@ block content
 
   pre.post!= post.content.message.body
 
-  p
+  p.author
     span Posted by&#xa0;
     a(href='/u/#{post.meta.author}')= author
 
+  h2 Comments
+
+  if session.uid
+    form(method='post', action='/comment')
+      input(type='text', name='message')
+      input(type='hidden', name='post_id', value=post.id)
+      input(type='hidden', name='_csrf', value=csrf)
+      button(type='submit') Add
+
+  ul.comments
+    for c in comments
+      a(name=c.value.anchorLink, href=c.value.anchorLink)= c.value.created
+      li
+        p!= c.value.comment.message
+        p
+          span Posted by&#xa0;
+          a(href='/u/#{c.value.author}')= c.value.comment.name

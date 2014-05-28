@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (app, grafty, dex, profileDb, isAuthed, nconf) {
+module.exports = function (app, grafty, dex, profileDb, isAuthed) {
   var uuid = require('uuid');
   var concat = require('concat-stream');
 

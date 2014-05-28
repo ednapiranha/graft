@@ -1,66 +1,51 @@
 'use strict';
 
-module.exports = function (app, isAuthed, nconf) {
-  var NoPlebs = require('no-plebs');
+module.exports = function (app, isAuthed, nopleb, twitter, moment, nconf) {
+  app.post('/comment', isAuthed, function (req, res, next) {
+    var message = twitter.autoLink(twitter.htmlEscape(req.body.message.trim()), { targetBlank: true });
+    var postId = parseInt(req.body.post_id, 10);
+    var url = nconf.get('domain') + ':' + nconf.get('port') + '/post/' + postId;
 
-  var nopleb = new NoPlebs({
-    db: nconf.get('db_comments'),
-    limit: 25
-  });
+    if (message.length > 0) {
+      var comment = {
+        message: message,
+        author: req.session.uid,
+        name: req.session.name
+      };
 
-  app.post('/comment', isAuthed, function (req, res) {
-    nopleb.addComment(req.body.comment, req.body.url, req.session.id, function (err, comment) {
-      if (err) {
-        res.status(400);
-        res.json({
-          error: err.toString()
-        });
+      nopleb.addComment(comment, url, req.session.uid, function (err, comment) {
+        if (err) {
+          res.status(400);
+          next();
+          return;
+        }
 
-        return;
-      }
-
-      res.json({
-        comment: comment
+        res.redirect('/post/' + postId);
       });
-    });
+    } else {
+      res.redirect('/post/' + postId);
+    }
   });
 
-  app.del('/comment', isAuthed, function (req, res) {
+  app.del('/comment', isAuthed, function (req, res, next) {
     var url = req.body.url;
     var key = req.body.key;
 
     nopleb.getComment(url, key, function (err, comment) {
-      if (err) {
+      if (err || req.session.id !== parseInt(comment.author, 10)) {
         res.status(400);
-        res.json({
-          error: err.toString()
-        });
-
-        return;
-      }
-
-      if (req.session.id !== parseInt(comment.author, 10)) {
-        res.status(400);
-        res.json({
-          error: 'You do not have permission to delete this comment'
-        });
-
+        next();
         return;
       }
 
       nopleb.removeComment(url, key, function (err, status) {
         if (err) {
           res.status(400);
-          res.json({
-            error: err.toString()
-          });
-
+          next();
           return;
         }
 
-        res.json({
-          message: 'deleted'
-        });
+        res.redirect('/post/' + postId);
       });
     });
   });

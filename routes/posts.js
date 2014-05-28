@@ -1,8 +1,6 @@
 'use strict';
 
-module.exports = function (app, grafty, dex, profileDb, isAuthed, nconf) {
-  var twitter = require('twitter-text');
-
+module.exports = function (app, grafty, dex, profileDb, nopleb, twitter, moment, isAuthed, nconf) {
   app.get('/add', function (req, res) {
     res.render('add');
   });
@@ -77,13 +75,39 @@ module.exports = function (app, grafty, dex, profileDb, isAuthed, nconf) {
   });
 
   app.get('/post/:id', function (req, res, next) {
-    dex.get(req.params.id, function (err, post) {
-      if (err) {
-        res.status(404);
-        next();
-        return;
-      }
+    var url = nconf.get('domain') + ':' + nconf.get('port') + '/post/' + req.params.id;
+    var comments = [];
 
+    var getComments = function (post, profile) {
+      var render = function () {
+        res.render('post', {
+          post: post,
+          author: profile.name,
+          comments: comments
+        });
+      };
+
+      nopleb.getComments(url, true, function (err, cmts) {
+        if (!err) {
+          var count = 0;
+
+          cmts.comments.forEach(function (c) {
+            count ++;
+
+            c.value.created = moment(c.value.created).fromNow();
+            comments.push(c);
+
+            if (count === cmts.comments.length) {
+              render();
+            }
+          });
+        } else {
+          render();
+        }
+      });
+    };
+
+    var getUser = function (post) {
       profileDb.get('user!' + post.meta.author, function (err, profile) {
         if (err) {
           res.status(404);
@@ -91,11 +115,18 @@ module.exports = function (app, grafty, dex, profileDb, isAuthed, nconf) {
           return;
         }
 
-        res.render('post', {
-          post: post,
-          author: profile.name
-        });
+        getComments(post, profile);
       });
+    };
+
+    dex.get(req.params.id, function (err, post) {
+      if (err) {
+        res.status(404);
+        next();
+        return;
+      }
+
+      getUser(post);
     });
   });
 
