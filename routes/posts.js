@@ -85,10 +85,11 @@ module.exports = function (app, grafty, dex, profileDb, nopleb, twitter, moment,
           author: profile.name,
           comments: comments
         });
+
       };
 
       nopleb.getComments(url, true, function (err, cmts) {
-        if (!err) {
+        if (!err && cmts.comments && cmts.comments.length > 0) {
           var count = 0;
 
           cmts.comments.forEach(function (c) {
