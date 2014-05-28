@@ -75,7 +75,7 @@ module.exports = function (app, grafty, dex, profileDb, nopleb, twitter, moment,
   });
 
   app.get('/post/:id', function (req, res, next) {
-    var url = nconf.get('domain') + ':' + nconf.get('port') + '/post/' + req.params.id;
+    var url = nconf.get('domain') + ':' + nconf.get('authPort') + '/post/' + req.params.id;
     var comments = [];
 
     var getComments = function (post, profile) {
