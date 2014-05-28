@@ -278,7 +278,32 @@ p.bio, p.url {
     margin: 10px 0;
 }
 
+@media only screen and (max-width: 788px) {
+    header li:not(:first-child) {
+        float: left;
+        width: 150px;
+    }
+
+    header li a {
+        font-size: 1.3rem;
+        width: 140px;
+    }
+}
+
 @media only screen and (max-width: 688px) {
+    header li:first-child {
+        clear: both;
+        width: 100%;
+    }
+    header li:not(:first-child) {
+        width: 146px;
+    }
+
+    header li a {
+        font-size: 1.2rem;
+        width: 140px;
+    }
+
     pre.photo {
         font-size: 0.75rem;
         line-height: 0.95rem;
@@ -293,10 +318,6 @@ p.bio, p.url {
     pre.photo {
         font-size: 0.58rem;
         line-height: 0.75rem;
-    }
-
-    header li {
-        padding-right: 20px;
     }
 
     header a {

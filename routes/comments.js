@@ -8,7 +8,7 @@ module.exports = function (app, isAuthed, nconf) {
     limit: 25
   });
 
-  app.post('/api/comment', isAuthed, function (req, res) {
+  app.post('/comment', isAuthed, function (req, res) {
     nopleb.addComment(req.body.comment, req.body.url, req.session.id, function (err, comment) {
       if (err) {
         res.status(400);
@@ -25,7 +25,7 @@ module.exports = function (app, isAuthed, nconf) {
     });
   });
 
-  app.del('/api/comment', isAuthed, function (req, res) {
+  app.del('/comment', isAuthed, function (req, res) {
     var url = req.body.url;
     var key = req.body.key;
 
