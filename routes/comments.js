@@ -4,7 +4,7 @@ module.exports = function (app, isAuthed, nopleb, twitter, moment, nconf) {
   app.post('/comment', isAuthed, function (req, res, next) {
     var message = twitter.autoLink(twitter.htmlEscape(req.body.message.trim()), { targetBlank: true });
     var postId = parseInt(req.body.post_id, 10);
-    var url = nconf.get('domain') + ':' + nconf.get('port') + '/post/' + postId;
+    var url = nconf.get('domain') + ':' + nconf.get('authPort') + '/post/' + postId;
 
     if (message.length > 0) {
       var comment = {
