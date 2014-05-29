@@ -136,6 +136,10 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM";
       profile.uid = req.session.uid;
     }
 
+    if (profile.url && !profile.url.match(/^http/)) {
+      profile.url = 'http://' + profile.url;
+    }
+
     var save = function () {
       profileDb.put('user!' + profile.uid, profile, function (err) {
         if (err) {
