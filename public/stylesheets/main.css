@@ -78,7 +78,7 @@ body {
 }
 
 pre, code, .ascii {
-    font-family: 'droid_sans_monoregular';
+    font-family: 'droid_sans_monoregular', monospace;
 }
 
 a {
