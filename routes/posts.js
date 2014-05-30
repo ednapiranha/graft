@@ -139,6 +139,16 @@ module.exports = function (app, grafty, dex, profileDb, nopleb, twitter, moment,
         return;
       }
 
+      var url = nconf.get('domain') + ':' + nconf.get('authPort') + '/post/' + req.params.id;
+
+      nopleb.getAllCommentKeys(url, function (err, keys) {
+        if (!err) {
+          keys.comments.forEach(function (c) {
+            nopleb.removeComment(url, c, function (err) { });
+          });
+        }
+      });
+
       res.redirect('/u/' + req.session.uid);
     });
   });

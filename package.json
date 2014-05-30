@@ -16,7 +16,7 @@
     "nconf": "~0.6.7",
     "dextromethorphan": "0.0.2",
     "connect-redis": "~1.4.6",
-    "no-plebs": "0.0.8",
+    "no-plebs": "0.0.9",
     "level": ">= 0.10.0",
     "grafty": "~0.0.5",
     "uuid": "~1.4.1",
