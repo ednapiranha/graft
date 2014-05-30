@@ -54,8 +54,7 @@ html, body {
 
 @font-face {
     font-family: 'droid_sans_monoregular';
-    src: url('../fonts/DroidSansMono-webfont.woff') format('woff'),
-         url('../fonts/DroidSansMono-webfont.ttf') format('ttf');
+    src: url('../fonts/DroidSansMono-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
