@@ -73,7 +73,7 @@ body {
     min-width: 280px;
     padding: 0 10px;
     position: relative;
-    width: 70%;
+    width: 900px;
 }
 
 pre, code, .ascii {
@@ -296,7 +296,11 @@ form {
     margin-bottom: 30px;
 }
 
-@media only screen and (max-width: 788px) {
+@media only screen and (max-width: 900px) {
+    #wrapper {
+        width: 600px;
+    }
+
     header li:not(:first-child) {
         float: left;
         width: 150px;
@@ -308,37 +312,30 @@ form {
     }
 }
 
-@media only screen and (max-width: 688px) {
+@media only screen and (max-width: 600px) {
+    #wrapper {
+        width: 300px;
+    }
+
+    h1, h2, ul.users li a {
+        font-size: 1.3rem;
+    }
+
     header li:first-child {
         clear: both;
         width: 100%;
     }
     header li:not(:first-child) {
-        width: 146px;
+        width: 99px;
     }
 
-    header li a {
-        font-size: 1.2rem;
-        width: 140px;
-    }
-
-    pre.photo {
-        font-size: 0.75rem;
-        line-height: 0.95rem;
-    }
-}
-
-@media only screen and (max-width: 518px) {
-    h1, h2, ul.users li a {
-        font-size: 1.3rem;
+    header li:not(:first-child) a {
+        font-size: 1rem;
+        width: 90px;
     }
 
     pre.photo {
         font-size: 0.58rem;
         line-height: 0.75rem;
-    }
-
-    header a {
-        font-size: 1rem;
     }
 }
