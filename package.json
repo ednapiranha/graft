@@ -24,7 +24,7 @@
     "twitter-text": "~1.9.0",
     "moment": "~2.6.0",
     "browserify": "~4.1.6",
-    "imageview": "~0.0.4"
+    "imageview": "~0.0.5"
   },
   "devDependencies": {
     "nodemon": "*"
