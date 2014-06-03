@@ -8,7 +8,7 @@ block content
       for error in errors
         li= error
 
-  form(method='POST', action='/profile')
+  form(method='POST', action='/profile', id='edit-profile')
     if jsSupport
       label(for='avatar')
         span Avatar
