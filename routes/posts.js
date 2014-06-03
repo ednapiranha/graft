@@ -1,6 +1,20 @@
 'use strict';
 
 module.exports = function (app, grafty, dex, profileDb, nopleb, twitter, moment, isAuthed, nconf) {
+  app.get('/', function (req, res, next) {
+    dex.getAll(0, function (err, posts) {
+      if (err) {
+        res.status(400);
+        next(err);
+        return;
+      }
+
+      res.render('index', {
+        posts: posts
+      });
+    });
+  });
+
   app.get('/add', function (req, res) {
     res.render('add');
   });

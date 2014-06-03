@@ -30,11 +30,11 @@ MMMMMMMMMMMMMMMMWWMMWWMMMMMMMMMMMMMMMMMMMMMMMMMMMM\n\
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\n\
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM";
 
-  app.get('/', function (req, res, next) {
+  app.get('/users', function (req, res, next) {
     var rs = profileDb.createReadStream();
 
     rs.pipe(concat(function (u) {
-      res.render('index', {
+      res.render('users', {
         users: u
       });
     }));

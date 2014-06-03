@@ -247,6 +247,10 @@ pre.photo {
     margin-bottom: 20px;
 }
 
+pre.preview {
+    margin-bottom: 20px;
+}
+
 pre.post {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 1.1rem;
@@ -256,6 +260,7 @@ pre.post {
 
 ul.posts {
     float: left;
+    width: 100%;
 }
 
 ul.posts li {
@@ -268,8 +273,7 @@ ul.posts li {
     margin-bottom: 10px;
 }
 
-
-.avatar-preview pre.photo {
+.avatar-preview pre.photo, pre.preview {
     font-size: 0.58rem;
     line-height: 0.72rem;
 }

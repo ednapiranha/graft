@@ -1,11 +1,13 @@
 extend layout
 
 block content
-  h1 People
+  h1 Recent
 
-  ul.users
-    for user in users
+  ul.posts
+    for post in posts
       li
-        .avatar-preview
-          pre.photo= user.value.avatar
-        a(href='/u/#{user.value.uid}')= user.value.name
+        h2
+          a(href='/post/#{post.id}')= post.content.message.title
+        if post.content.message.photo
+          pre.preview= post.content.message.photo
+        p= post.content.message.body

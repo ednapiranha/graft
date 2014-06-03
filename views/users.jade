@@ -1,0 +1,11 @@
+extend layout
+
+block content
+  h1 People
+
+  ul.users
+    for user in users
+      li
+        .avatar-preview
+          pre.photo= user.value.avatar
+        a(href='/u/#{user.value.uid}')= user.value.name
