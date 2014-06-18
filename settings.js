@@ -7,8 +7,12 @@ module.exports = function(app, configurations, express) {
 
   nconf.argv().env().file({ file: 'local.json' });
 
+  var validGitURL = function (req) {
+    return req.url === '/git/gopher';
+  };
+
   var clientBypassCSRF = function (req, res, next) {
-    if (req.params && req.params.git) {
+    if (validGitURL(req)) {
       next();
     } else {
       csrf(req, res, next);
@@ -36,7 +40,7 @@ module.exports = function(app, configurations, express) {
     }));
     app.use(clientBypassCSRF);
     app.use(function (req, res, next) {
-      if (req.params && req.params.git) {
+      if (validGitURL(req)) {
         res.locals.csrf = false;
       } else {
         res.locals.csrf = req.csrfToken();

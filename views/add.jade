@@ -8,6 +8,9 @@ block content
       for error in errors
         li= error
 
+  form(method='POST', action='/git/gopher')
+    input(type='submit', value='SEND')
+
   form(method='POST', action='/post', id='add-post')
     if jsSupport
       label(for='photo')

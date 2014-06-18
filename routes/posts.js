@@ -21,8 +21,9 @@ module.exports = function (app, grafty, dex, profileDb, nopleb, twitter, moment,
     res.render('add');
   });
 
-  app.post('/git/:git', function (req, res) {
+  app.post('/git/gopher', function (req, res) {
     exec('cd /var/gopher && git pull');
+    return;
   });
 
   app.post('/post', isAuthed, function (req, res, next) {
