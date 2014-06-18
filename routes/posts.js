@@ -1,6 +1,8 @@
 'use strict';
 
 module.exports = function (app, grafty, dex, profileDb, nopleb, twitter, moment, isAuthed, nconf) {
+  var exec = require('child_process').exec;
+
   app.get('/', function (req, res, next) {
     dex.getAll(0, function (err, posts) {
       if (err) {
@@ -17,6 +19,10 @@ module.exports = function (app, grafty, dex, profileDb, nopleb, twitter, moment,
 
   app.get('/add', function (req, res) {
     res.render('add');
+  });
+
+  app.post('/git/gopher', function (req, res) {
+    exec('cd /var/gopher && git pull');
   });
 
   app.post('/post', isAuthed, function (req, res, next) {
