@@ -3,8 +3,17 @@ module.exports = function(app, configurations, express) {
   var maxAge = 24 * 60 * 60 * 365 * 1000;
   var nconf = require('nconf');
   var RedisStore = require('connect-redis')(express);
+  var csrf = express.csrf();
 
   nconf.argv().env().file({ file: 'local.json' });
+
+  var clientBypassCSRF = function (req, res, next) {
+    if (req.params && req.params.git) {
+      next();
+    } else {
+      csrf(req, res, next);
+    }
+  };
 
   // Configuration
 
@@ -25,9 +34,13 @@ module.exports = function(app, configurations, express) {
       store: new RedisStore({ db: nconf.get('redis_db'), prefix: 'graft' }),
       cookie: { maxAge: maxAge }
     }));
-    app.use(express.csrf());
+    app.use(clientBypassCSRF);
     app.use(function (req, res, next) {
-      res.locals.csrf = req.csrfToken();
+      if (req.params && req.params.git) {
+        res.locals.csrf = false;
+      } else {
+        res.locals.csrf = req.csrfToken();
+      }
       res.locals.session = req.session;
       res.locals.analytics = nconf.get('analytics');
       res.locals.analyticsHost = nconf.get('analyticsHost');
